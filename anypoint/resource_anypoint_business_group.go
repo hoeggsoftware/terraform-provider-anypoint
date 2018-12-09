@@ -3,10 +3,10 @@ package anypoint
 import (
 	"context"
 	"fmt"
-	"github.com/rhoegg/go-anypoint"
-	"log"
 	"github.com/hashicorp/terraform/helper/schema"
 	"github.com/hashicorp/terraform/helper/validation"
+	"github.com/rhoegg/go-anypoint"
+	"log"
 )
 
 func resourceAnypointBusinessGroup() *schema.Resource {
@@ -14,9 +14,6 @@ func resourceAnypointBusinessGroup() *schema.Resource {
 		Create: resourceAnypointBusinessGroupCreate,
 		Read:   resourceAnypointBusinessGroupRead,
 		Delete: resourceAnypointBusinessGroupDelete,
-		Importer: &schema.ResourceImporter{
-			State: schema.ImportStatePassthrough,
-		},
 
 		Schema: map[string]*schema.Schema{
 			"name": {
@@ -39,7 +36,7 @@ func resourceAnypointBusinessGroupCreate(d *schema.ResourceData, meta interface{
 
 	// Build up our creation options
 	opts := &go_anypoint.BusinessGroupCreateRequest{
-		Name:      d.Get("name").(string),
+		Name: d.Get("name").(string),
 	}
 
 	log.Printf("[DEBUG] Business group create configuration: %#v", opts)

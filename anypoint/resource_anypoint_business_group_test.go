@@ -21,7 +21,7 @@ func TestAccAnypointBusinessGroup_Basic(t *testing.T) {
 		CheckDestroy: testAccCheckAnypointBusinessGroupDestroy,
 		Steps: []resource.TestStep{
 			{
-				Config: testAccCheckAnypointBusinessGroupConfig_basic(rInt),
+				Config: fmt.Sprintf(testAccCheckAnypointBusinessGroupConfig_basic, rInt),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckAnypointBusinessGroupExists("anypoint_business_group.testgroup", &bg),
 					resource.TestCheckResourceAttr(
@@ -81,9 +81,8 @@ func testAccCheckAnypointBusinessGroupExists(n string, bg *go_anypoint.BusinessG
 	}
 }
 
-func testAccCheckAnypointBusinessGroupConfig_basic(rInt int) string {
-	return fmt.Sprintf(`
+const testAccCheckAnypointBusinessGroupConfig_basic = `
 resource "anypoint_business_group" "testgroup" {
     name = "TestGroup%d"
-}`, rInt)
-}
+}`
+

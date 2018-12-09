@@ -6,24 +6,24 @@ import (
 )
 
 func Provider() terraform.ResourceProvider {
-	return &schema.Provider {
+	return &schema.Provider{
 		Schema: map[string]*schema.Schema{
-			"username": {
-				Type: schema.TypeString,
-				Required: true,
-				DefaultFunc: schema.EnvDefaultFunc("ANYPOINT_USERNAME", nil),
+			"username": &schema.Schema{
+				Type:        schema.TypeString,
+				Required:    true,
+				DefaultFunc: schema.EnvDefaultFunc("ANYPOINT_USERNAME", "wrong"),
 				Description: "Anypoint platform user name",
 			},
-			"password": {
-				Type: schema.TypeString,
-				Required: true,
-				DefaultFunc: schema.EnvDefaultFunc("ANYPOINT_PASSWORD", nil),
+			"password": &schema.Schema{
+				Type:        schema.TypeString,
+				Required:    true,
+				DefaultFunc: schema.EnvDefaultFunc("ANYPOINT_PASSWORD", "wrongpass"),
 				Description: "Anypoint platform password",
 			},
 		},
 
 		ResourcesMap: map[string]*schema.Resource{
-			"anypoint_businessgroup": resourceAnypointBusinessGroup(),
+			"anypoint_business_group": resourceAnypointBusinessGroup(),
 		},
 		ConfigureFunc: providerConfigure,
 	}
