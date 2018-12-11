@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/hashicorp/terraform/helper/schema"
 	"github.com/hashicorp/terraform/helper/validation"
-	"github.com/rhoegg/go-anypoint"
+	"github.com/rhoegg/go-anypoint/anypointplatform"
 	"log"
 )
 
@@ -32,10 +32,10 @@ func resourceAnypointBusinessGroup() *schema.Resource {
 }
 
 func resourceAnypointBusinessGroupCreate(d *schema.ResourceData, meta interface{}) error {
-	client := meta.(*go_anypoint.Client)
+	client := meta.(*anypointplatform.Client)
 
 	// Build up our creation options
-	opts := &go_anypoint.BusinessGroupCreateRequest{
+	opts := &anypointplatform.BusinessGroupCreateRequest{
 		Name: d.Get("name").(string),
 	}
 
@@ -52,7 +52,7 @@ func resourceAnypointBusinessGroupCreate(d *schema.ResourceData, meta interface{
 }
 
 func resourceAnypointBusinessGroupRead(d *schema.ResourceData, meta interface{}) error {
-	client := meta.(*go_anypoint.Client)
+	client := meta.(*anypointplatform.Client)
 
 	bg, resp, err := client.BusinessGroup.Get(context.Background(), d.Id())
 	if err != nil {
@@ -69,9 +69,9 @@ func resourceAnypointBusinessGroupRead(d *schema.ResourceData, meta interface{})
 }
 
 func resourceAnypointBusinessGroupDelete(d *schema.ResourceData, meta interface{}) error {
-	client := meta.(*go_anypoint.Client)
+	client := meta.(*anypointplatform.Client)
 
-	log.Printf("[INFO] Deleting Business grojp: %s", d.Id())
+	log.Printf("[INFO] Deleting Business group: %s", d.Id())
 	_, err := client.BusinessGroup.Delete(context.Background(), d.Id())
 	if err != nil {
 		return fmt.Errorf("Error deleting BusinessGroup: %s", err)

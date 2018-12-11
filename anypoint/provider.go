@@ -8,16 +8,16 @@ import (
 func Provider() terraform.ResourceProvider {
 	return &schema.Provider{
 		Schema: map[string]*schema.Schema{
-			"username": &schema.Schema{
+			"username": {
 				Type:        schema.TypeString,
 				Required:    true,
-				DefaultFunc: schema.EnvDefaultFunc("ANYPOINT_USERNAME", "wrong"),
+				DefaultFunc: schema.EnvDefaultFunc("ANYPOINT_USERNAME", nil),
 				Description: "Anypoint platform user name",
 			},
-			"password": &schema.Schema{
+			"password": {
 				Type:        schema.TypeString,
 				Required:    true,
-				DefaultFunc: schema.EnvDefaultFunc("ANYPOINT_PASSWORD", "wrongpass"),
+				DefaultFunc: schema.EnvDefaultFunc("ANYPOINT_PASSWORD", nil),
 				Description: "Anypoint platform password",
 			},
 		},

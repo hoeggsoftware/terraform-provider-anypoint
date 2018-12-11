@@ -3,7 +3,7 @@ package anypoint
 import (
 	"context"
 	"fmt"
-	"github.com/rhoegg/go-anypoint"
+	"github.com/rhoegg/go-anypoint/anypointplatform"
 	"testing"
 
 	"github.com/hashicorp/terraform/helper/acctest"
@@ -12,7 +12,7 @@ import (
 )
 
 func TestAccAnypointBusinessGroup_Basic(t *testing.T) {
-	var bg go_anypoint.BusinessGroup
+	var bg anypointplatform.BusinessGroup
 	rInt := acctest.RandInt()
 
 	resource.Test(t, resource.TestCase{
@@ -33,7 +33,7 @@ func TestAccAnypointBusinessGroup_Basic(t *testing.T) {
 }
 
 func testAccCheckAnypointBusinessGroupDestroy(s *terraform.State) error {
-	client := testAccProvider.Meta().(*go_anypoint.Client)
+	client := testAccProvider.Meta().(*anypointplatform.Client)
 
 	for _, rs := range s.RootModule().Resources {
 		if rs.Type != "anypoint_business_group" {
@@ -51,7 +51,7 @@ func testAccCheckAnypointBusinessGroupDestroy(s *terraform.State) error {
 	return nil
 }
 
-func testAccCheckAnypointBusinessGroupExists(n string, bg *go_anypoint.BusinessGroup) resource.TestCheckFunc {
+func testAccCheckAnypointBusinessGroupExists(n string, bg *anypointplatform.BusinessGroup) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 
@@ -63,7 +63,7 @@ func testAccCheckAnypointBusinessGroupExists(n string, bg *go_anypoint.BusinessG
 			return fmt.Errorf("No Record ID is set")
 		}
 
-		client := testAccProvider.Meta().(*go_anypoint.Client)
+		client := testAccProvider.Meta().(*anypointplatform.Client)
 
 		foundBg, _, err := client.BusinessGroup.Get(context.Background(), rs.Primary.ID)
 
@@ -85,4 +85,3 @@ const testAccCheckAnypointBusinessGroupConfig_basic = `
 resource "anypoint_business_group" "testgroup" {
     name = "TestGroup%d"
 }`
-

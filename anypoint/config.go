@@ -1,7 +1,7 @@
 package anypoint
 
 import (
-	"github.com/rhoegg/go-anypoint"
+	"github.com/rhoegg/go-anypoint/anypointplatform"
 	"log"
 )
 
@@ -10,8 +10,8 @@ type Config struct {
 	Password string
 }
 
-func (c *Config) Client() (*go_anypoint.Client, error) {
-	client := go_anypoint.NewClient(nil)
+func (c *Config) Client() (*anypointplatform.Client, error) {
+	client := anypointplatform.NewClient(nil)
 	client.Username = c.Username
 	client.Password = c.Password
 	log.Printf("[INFO] Anypoint Client configured for URL: %s", client.BaseURL.String())
